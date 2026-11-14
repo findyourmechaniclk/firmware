@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "lint.yml"
+# Estimated savings: ~2 min/run
+#
 name: lint
 on:
   pull_request:
@@ -25,6 +30,10 @@ on:
 
 # Reads the tree and reports; writes nothing. Declared rather than inherited so
 # the job keeps the narrow token whatever the repo or org default becomes.
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 
